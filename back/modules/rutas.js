@@ -58,4 +58,37 @@ ruta.delete("/api/users/:id", (req, res) => {
   });
 });
 
+//Login de Usuario
+ruta.post("/login", async (req, res) => {
+  try {
+    const EMAIL = req.body.EMAIL;
+    const CONTRASEÑA = req.body.CONTRASEÑA;
+    if (!EMAIL || !CONTRASEÑA) {
+      console.log("Debe enviar los datos completos");
+    } else {
+      conex.query(
+        "SELECT * FROM usuarios WHERE EMAIL = ? ",
+        [EMAIL],
+        async (error, respuesta) => {
+          if (
+            respuesta.length === 0 ||
+            !(await bycript.compare(CONTRASEÑA, respuesta[0].CONTRASEÑA))
+          ) {
+            console.log(
+              "El usuario y/o la clave ingresado no existen en la aplicación"
+            );
+            res.status(404).send(false);
+          } else {
+            console.log("BIENVENIDO AL SISTEMA DE INFORMACIÓN");
+            res.status(200).send(true);
+          }
+        }
+      );
+    }
+  } catch (error) {
+    console.log("Hay un error en la conexión con el servidor");
+    res.status(404).send(error);
+  }
+});
+
 module.exports = ruta;

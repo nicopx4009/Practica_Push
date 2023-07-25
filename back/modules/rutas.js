@@ -33,7 +33,7 @@ ruta.post("/usuario/crear", async (req, res) => {
       TELEFONO: req.body.TELEFONO,
       DIRECCION: req.body.DIRECCION,
       EMAIL: req.body.EMAIL,
-      CONTRASEÑA: bycript.hashSync(req.body.CONTRASEÑA,7),
+      CONTRASEÑA: bycript.hashSync(req.body.CONTRASEÑA, 7),
     };
     conex.query("INSERT INTO usuarios SET ?", data, (error, respuesta) => {
       //res.send("insercion exitosa !");
@@ -43,7 +43,7 @@ ruta.post("/usuario/crear", async (req, res) => {
   } catch (error) {
     console.log(error);
     // res.send.status(404).error;
-  }
+  }
 });
 
 //VERBO BORRAR
@@ -91,34 +91,33 @@ ruta.post("/login", async (req, res) => {
   }
 });
 
-// editar
-ruta.put('/api/users/:id', (req, res) => {
-  try{
-    
-  let ID = req.params.id;
-  let datos = {
-    NOMBRE: req.body.NOMBRE,
-    APELLIDO: req.body.APELLIDO,
-    TELEFONO: req.body.TELEFONO,
-    DIRECCION: req.body.DIRECCION,
-    EMAIL: req.body.EMAIL,
-    CONTRASEÑA: bycript.hashSync(req.body.CONTRASEÑA,7),
-  };
-  conex.query("UPDATE usuarios SET  ? where ID = ?", [datos, ID]), (error, respuesta) => {
-
-    if (error) {
-      console.log(error);
-      res.status(500).send(false);
-    } else {
-      res.status(201).send(true);
-      console.log("Actualización exitosa");
-    }
-  }
-  }catch(error){
+ruta.put("/api/users/:id", (req, res) => {
+  try {
+    let ID = req.params.id;
+    let datos = {
+      NOMBRE: req.body.NOMBRE,
+      APELLIDO: req.body.APELLIDO,
+      TELEFONO: req.body.TELEFONO,
+      DIRECCION: req.body.DIRECCION,
+      EMAIL: req.body.EMAIL,
+      CONTRASEÑA: bycript.hashSync(req.body.CONTRASEÑA, 7),
+    };
+    conex.query(
+      "UPDATE usuarios SET ? WHERE ID = ?",
+      [datos, ID],
+      (error, respuesta) => {
+        if (error) {
+          console.log(error);
+          res.status(500).send(false);
+        } else {
+          res.status(201).send(true);
+          console.log("Actualización exitosa");
+        }
+      }
+    );
+  } catch (error) {
     res.send(error);
   }
-
-
-})
+});
 
 module.exports = ruta;

@@ -91,6 +91,7 @@ ruta.post("/login", async (req, res) => {
   }
 });
 
+// editar
 ruta.put("/api/users/:id", (req, res) => {
   try {
     let ID = req.params.id;
@@ -103,7 +104,7 @@ ruta.put("/api/users/:id", (req, res) => {
       CONTRASEÑA: bycript.hashSync(req.body.CONTRASEÑA, 7),
     };
     conex.query(
-      "UPDATE usuarios SET ? WHERE ID = ?",
+      "UPDATE usuarios SET  ? where ID = ?",
       [datos, ID],
       (error, respuesta) => {
         if (error) {

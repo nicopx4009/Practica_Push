@@ -1,0 +1,27 @@
+{
+  "name": "Practica_Push",
+  "version": "1.0.0",
+  "description": "Practica para mejorar",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon start app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "practica",
+    "mejorar",
+    "ser",
+    "el",
+    "mejor"
+  ],
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-jwt": "^8.4.1",
+    "jsonwebtoken": "^9.0.1",
+    "mysql": "^2.18.1",
+    "nodemon": "^3.0.1"
+  }
+}
